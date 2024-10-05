@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: "configserver"
+  #  we put it as native when we load the configuration from the clas path
+  profiles:
+    active: git
+  #    active: native
+  cloud:
+    config:
+      server:
+        git:
+#        native:
+#          use it when you put your configuration file inside classpath location
+#          search-locations: "classpath:/config"
+#          the number of / is mandatory
+#          search-locations: "file:///C://microservices"
+          uri: "https://github.com/Abdelkarim-01/config-repo.git"
+          default-label: main
+          timeout: 5
+#          ensure the clone of config repo during the startup of the config Server
+          clone-on-start: true
+#          force us to do pull when the startup for always run with the configuration that is inside the repo and also
+#          for not read inutilze property if we change te local repo by our self
+          force-pull: true
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "guest"
+    password: "guest"
+
+
+server:
+  port: 8071
+encrypt:
+  key: "45D81EC1EF61DF9AD8D3E5BB397F9"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
