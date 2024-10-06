@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.eazybits</groupId>
-	<artifactId>Configserver</artifactId>
+	<artifactId>configserver</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Configserver</name>
 	<description>config server for EeazyBank microservices</description>
@@ -71,6 +71,16 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.4.2</version>
+				<configuration>
+					<to>
+						<image>abdelkarim01/${project.artifactId}:v6</image>
+					</to>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
