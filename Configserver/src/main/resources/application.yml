@@ -22,12 +22,6 @@ spring:
 #          force us to do pull when the startup for always run with the configuration that is inside the repo and also
 #          for not read inutilze property if we change te local repo by our self
           force-pull: true
-  rabbitmq:
-    host: "localhost"
-    port: 5672
-    username: "guest"
-    password: "guest"
-
 
 server:
   port: 8071
