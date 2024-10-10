@@ -38,8 +38,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -83,7 +83,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>abdelkarim01/${project.artifactId}:v6</image>
+						<image>abdelkarim01/${project.artifactId}:v7</image>
 					</to>
 				</configuration>
 			</plugin>
