@@ -1,23 +1,7 @@
 services:
 
-  rabbit:
-    image: "rabbitmq:3.12-management"
-    hostname: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
-    healthcheck:
-      test: rabbitmq-diagnostics check_port_connectivity
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 5s
-    extends:
-      file: common-config.yml
-      service: network-deploy-service
-
   serverconfig:
-    image: "abdelkarim01/configserver:v6"
+    image: "abdelkarim01/configserver:v8"
     container_name: configserver-ms
     ports:
       - "8071:8071"
@@ -34,8 +18,29 @@ services:
       file: common-config.yml
       service: microservice-base-config
 
+  servereureka:
+    image: "abdelkarim01/eurekaserver:v8"
+    container_name: eurekaserver-ms
+    ports:
+      - "8070:8070"
+    healthcheck:
+      test: "curl --fail --silent localhost:8070/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
+    depends_on:
+      serverconfig:
+        condition: service_healthy
+    environment:
+      #the same name that we have in the git ripo
+      SPRING_APPLICATION_NAME: "eurekaServer"
+
   accounts:
-    image: "abdelkarim01/accounts:v6"
+    image: "abdelkarim01/accounts:v8"
     container_name: accounts-ms
     ports:
       - "8080:8080"
@@ -46,7 +51,7 @@ services:
       service: microservice-configserver-config
 
   loans:
-    image: "abdelkarim01/loans:v6"
+    image: "abdelkarim01/loans:v8"
     container_name: loans-ms
     ports:
       - "8090:8090"
@@ -57,7 +62,7 @@ services:
       service: microservice-configserver-config
 
   cards:
-    image: "abdelkarim01/cards:v6"
+    image: "abdelkarim01/cards:v8"
     container_name: cards-ms
     ports:
       - "9000:9000"
