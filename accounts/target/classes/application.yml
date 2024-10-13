@@ -2,6 +2,8 @@ server:
   port: 8080
 spring:
   application:
+    # This is the name that will register with the Eureka server and should also match
+    # the name of the config file inside the GitHub repository used by the Spring Config Server
     name: "accounts"
   profiles:
     active: "prod"
@@ -51,3 +53,9 @@ info:
     name: "accounts"
     description: "Eazy Bank Accounts Application"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      eazybytes:
+        accounts: DEBUG
