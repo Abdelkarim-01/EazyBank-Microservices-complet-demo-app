@@ -1,13 +1,10 @@
 services:
 
   serverconfig:
-    image: "abdelkarim01/configserver:v8"
+    image: "abdelkarim01/configserver:v9"
     container_name: configserver-ms
     ports:
       - "8071:8071"
-    depends_on:
-      rabbit:
-        condition: service_healthy
     healthcheck:
       test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
       interval: 10s
@@ -19,7 +16,7 @@ services:
       service: microservice-base-config
 
   servereureka:
-    image: "abdelkarim01/eurekaserver:v8"
+    image: "abdelkarim01/eurekaserver:v9"
     container_name: eurekaserver-ms
     ports:
       - "8070:8070"
@@ -31,46 +28,80 @@ services:
       start_period: 10s
     extends:
       file: common-config.yml
-      service: microservice-base-config
-    depends_on:
-      serverconfig:
-        condition: service_healthy
+      service: microservice-configserver-config
     environment:
       #the same name that we have in the git ripo
       SPRING_APPLICATION_NAME: "eurekaServer"
 
   accounts:
-    image: "abdelkarim01/accounts:v8"
+    image: "abdelkarim01/accounts:v9"
     container_name: accounts-ms
     ports:
       - "8080:8080"
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     environment:
       SPRING_APPLICATION_NAME: "accounts"
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
   loans:
-    image: "abdelkarim01/loans:v8"
+    image: "abdelkarim01/loans:v9"
     container_name: loans-ms
     ports:
       - "8090:8090"
+    healthcheck:
+      test: "curl --fail --silent localhost:8090/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     environment:
+      #the name that we use in eureka adn openfeign
       SPRING_APPLICATION_NAME: "loans"
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
 
   cards:
-    image: "abdelkarim01/cards:v8"
+    image: "abdelkarim01/cards:v9"
     container_name: cards-ms
     ports:
       - "9000:9000"
+    healthcheck:
+      test: "curl --fail --silent localhost:9000/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     environment:
       SPRING_APPLICATION_NAME: "cards"
     extends:
       file: common-config.yml
-      service: microservice-configserver-config
+      service: microservice-eureka-config
+
+  gatewayserver:
+    image: "abdelkarim01/gatewayserver:v9"
+    container_name: gatewayserver-ms
+    ports:
+      - "8072:8072"
+    depends_on:
+      accounts:
+        condition: service_healthy
+      loans:
+        condition: service_healthy
+      cards:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "gatewayserver"
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
 
 networks:
   eazybank:
