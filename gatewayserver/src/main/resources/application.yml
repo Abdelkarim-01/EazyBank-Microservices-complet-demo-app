@@ -34,3 +34,18 @@ logging:
     com:
       eazybytes:
         gatewayserver: DEBUG
+
+
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      #if we have multiple configuration of circuitBreaker we should instead ( default ) put the name like our: accountsCircuitBreaker
+      default:
+        #For every 10 calls it will calculate the failure rate. if 50% failures move to the open state.
+        sliding-window-size: 10
+        permitted-number-of-calls-in-half-open-state: 2
+        # mean 50% that is depend_on the first properties
+        failure-rate-threshold: 50
+        #it will wait for 10s and after that move to half-open state
+        wait-duration-in-open-state: 10000
