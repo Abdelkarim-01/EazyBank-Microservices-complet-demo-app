@@ -21,7 +21,9 @@ C:\Users\Admin\IdeaProjects\microservices-3.3.2\section6\v3-My-spring-cloud-conf
 C:\Users\Admin\IdeaProjects\microservices-3.3.2\section6\v3-My-spring-cloud-config\accounts\src\main\java\com\eazybytes\accounts\mapper\CustomerMapper.java
 C:\Users\Admin\IdeaProjects\microservices-3.3.2\section6\v3-My-spring-cloud-config\accounts\src\main\java\com\eazybytes\accounts\repository\AccountsRepository.java
 C:\Users\Admin\IdeaProjects\microservices-3.3.2\section6\v3-My-spring-cloud-config\accounts\src\main\java\com\eazybytes\accounts\repository\CustomerRepository.java
+C:\Users\Admin\IdeaProjects\microservices-3.3.2\section6\v3-My-spring-cloud-config\accounts\src\main\java\com\eazybytes\accounts\service\client\CardsFallback.java
 C:\Users\Admin\IdeaProjects\microservices-3.3.2\section6\v3-My-spring-cloud-config\accounts\src\main\java\com\eazybytes\accounts\service\client\CardsFeignClient.java
+C:\Users\Admin\IdeaProjects\microservices-3.3.2\section6\v3-My-spring-cloud-config\accounts\src\main\java\com\eazybytes\accounts\service\client\LoansFallback.java
 C:\Users\Admin\IdeaProjects\microservices-3.3.2\section6\v3-My-spring-cloud-config\accounts\src\main\java\com\eazybytes\accounts\service\client\LoansFeignClient.java
 C:\Users\Admin\IdeaProjects\microservices-3.3.2\section6\v3-My-spring-cloud-config\accounts\src\main\java\com\eazybytes\accounts\service\IAccountsService.java
 C:\Users\Admin\IdeaProjects\microservices-3.3.2\section6\v3-My-spring-cloud-config\accounts\src\main\java\com\eazybytes\accounts\service\ICustomersService.java

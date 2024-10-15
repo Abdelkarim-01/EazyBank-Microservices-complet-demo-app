@@ -51,7 +51,10 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -88,7 +91,7 @@
 				<version>3.4.2</version>
 				<configuration>
 					<to>
-						<image>abdelkarim01/${project.artifactId}:v9</image>
+						<image>abdelkarim01/${project.artifactId}:v10</image>
 					</to>
 				</configuration>
 			</plugin>
