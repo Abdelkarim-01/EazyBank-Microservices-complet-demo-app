@@ -11,6 +11,7 @@ spring:
           enabled: false
           lowerCaseServiceId: true
 
+# Spring Actuator endpoints to expose useful operational details about the application:
 management:
   endpoints:
     web:
@@ -23,6 +24,7 @@ management:
     env:
       enabled: true
 
+#http://localhost:8072/actuator/info
 info:
   app:
     name: "gatewayserver"
