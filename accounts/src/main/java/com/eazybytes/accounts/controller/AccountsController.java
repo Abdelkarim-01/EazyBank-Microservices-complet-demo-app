@@ -204,7 +204,8 @@ public class AccountsController {
     @Retry(name = "getBuildInfo" , fallbackMethod = "getBuildInfoFallback")
     public ResponseEntity<String> getBuildInfo() {
         logger.debug("getBuildInfo() methode Invoked");
-//        throw new NullPointerException();
+        //we can use this to test retry pattern also
+        //throw new NullPointerException();
         return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(buildVersion);

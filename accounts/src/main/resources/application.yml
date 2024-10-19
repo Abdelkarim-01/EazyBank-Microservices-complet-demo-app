@@ -22,6 +22,7 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  # Feign will wrap all methods with a circuit breaker.
   cloud:
     openfeign:
       circuitbreaker:
@@ -38,6 +39,7 @@ resilience4j.circuitbreaker:
 
 resilience4j.retry:
   configs:
+    #with (default) it apply globally , if we want to use it for a specific retry we should use the retry name : (getBuildInfo)
     default:
       max-attempts: 3
       wait-duration: 10
@@ -51,9 +53,12 @@ resilience4j.retry:
 resilience4j.ratelimiter:
   configs:
     default:
+      # the thread will wait for 1s to get the permission if it dont permitted
+      # (the new 5s come) it will return back with error
       timeout-duration: 1000
-      limit-refresh-period: 5000
+      #for each 5 s only 1 request is allowed
       limit-for-period: 1
+      limit-refresh-period: 5000
 
 #actuator endpoint
 management:

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CardsFallback implements CardsFeignClient{
+    //fallback mechanism for the circuit breaker
     @Override
     public ResponseEntity<CardsDto> fetchCardDetails(String correlationId, String mobileNumber) {
         return null;

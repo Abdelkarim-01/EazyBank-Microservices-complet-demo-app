@@ -31,8 +31,10 @@ public class GatewayserverApplication {
 						.path("/eazybank/accounts/**")
 						.filters(f ->f.rewritePath("/eazybank/accounts/(?<segment>.*)","/${segment}")
 									  .addResponseHeader("X-Response-Time", LocalDateTime.now().toString())
+								      //the circuit breaker has it own default timeout configuration , and its override
+								      // the global config of timeout set in application.yml
 									  .circuitBreaker(config -> config.setName("accountsCircuitBreaker")
-											  						  .setFallbackUri("forward:/contactSupport")
+											.setFallbackUri("forward:/contactSupport")
 									  )
 						)
 						.uri("lb://ACCOUNTS"))
@@ -60,13 +62,14 @@ public class GatewayserverApplication {
 
 	@Bean
 	public Customizer<ReactiveResilience4JCircuitBreakerFactory> defaultCustomizer() {
+		//this bean allows as to configure  or override the default time limiter of teh circuit breaker
 		return factory -> factory.configureDefault(id -> new Resilience4JConfigBuilder(id)
 				.circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
 				.timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(4)).build()).build());
 	}
 	@Bean
 	public RedisRateLimiter redisRateLimiter() {
-		return new RedisRateLimiter(1, 1, 1);
+		return new RedisRateLimiter(1,1,1);
 	}
 
 	@Bean

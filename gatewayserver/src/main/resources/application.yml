@@ -11,6 +11,7 @@ spring:
           enabled: false
           lowerCaseServiceId: true
       httpclient:
+        #the time that the gateway server will wait to get connection thread from other microservices (1s)
         connect-timeout: 1000
         response-timeout: 2s
   data:
@@ -35,7 +36,7 @@ management:
 
 info:
   app:
-    name: "gatewayserver"
+    name: "gatewayServer"
     description: "Eazy Bank Gateway Server Application"
     version: "1.0.0"
 
@@ -45,12 +46,11 @@ logging:
       eazybytes:
         gatewayserver: DEBUG
 
-
-
 resilience4j:
   circuitbreaker:
     configs:
-      #if we have multiple configuration of circuitBreaker we should instead ( default ) put the name like our: accountsCircuitBreaker
+      #if we have multiple configuration of circuitBreaker we should instead ( default )
+      #put the name like our: accountsCircuitBreaker
       default:
         #For every 10 calls it will calculate the failure rate. if 50% failures move to the open state.
         sliding-window-size: 10
