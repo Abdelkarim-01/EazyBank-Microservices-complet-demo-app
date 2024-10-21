@@ -19,6 +19,14 @@ management:
     health:
       probes:
         enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+
 # Eureka Dashboard : http://localhost:8070/
 # Eureka All instances info :  http://localhost:8070/eureka/apps
 # information about cards instances : http://localhost:8070/eureka/apps/cards

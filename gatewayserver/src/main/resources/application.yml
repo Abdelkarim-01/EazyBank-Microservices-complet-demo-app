@@ -12,8 +12,8 @@ spring:
           lowerCaseServiceId: true
       httpclient:
         #the time that the gateway server will wait to get connection thread from other microservices (1s)
-        connect-timeout: 1000
-        response-timeout: 2s
+        connect-timeout: 2000
+        response-timeout: 3s
   data:
     #we should run redis container first : docker run -p 6379:6379 --name eazyredis -d redis
     redis:
@@ -33,7 +33,9 @@ management:
   info:
     env:
       enabled: true
-
+  metrics:
+    tags:
+      application: ${spring.application.name}
 info:
   app:
     name: "gatewayServer"
@@ -45,6 +47,8 @@ logging:
     com:
       eazybytes:
         gatewayserver: DEBUG
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
 
 resilience4j:
   circuitbreaker:
