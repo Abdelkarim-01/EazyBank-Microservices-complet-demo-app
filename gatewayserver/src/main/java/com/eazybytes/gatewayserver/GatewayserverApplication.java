@@ -65,7 +65,7 @@ public class GatewayserverApplication {
 		//this bean allows as to configure  or override the default time limiter of teh circuit breaker
 		return factory -> factory.configureDefault(id -> new Resilience4JConfigBuilder(id)
 				.circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
-				.timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(4)).build()).build());
+				.timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(10)).build()).build());
 	}
 	@Bean
 	public RedisRateLimiter redisRateLimiter() {

@@ -13,7 +13,12 @@ spring:
       httpclient:
         #the time that the gateway server will wait to get connection thread from other microservices (1s)
         connect-timeout: 2000
-        response-timeout: 3s
+        response-timeout: 5s
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: "http://localhost:7080/realms/master/protocol/openid-connect/certs"
   data:
     #we should run redis container first : docker run -p 6379:6379 --name eazyredis -d redis
     redis:
